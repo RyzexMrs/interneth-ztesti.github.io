@@ -10,7 +10,7 @@
 		input,button{font-size: 18px;padding: 10px 14px;border-radius: 6px;text-align: center;border: none;}
 		#grid{display: grid;grid-template-columns: repeat(2, auto);width: 380px;margin: 0 auto;}
 		small{margin-bottom: 4px;font-size: 14px}
-		button{background-color: #B7B78A;}
+		button{background-color: #Yellow;}
 		button:active{transform: scale(0.985);}
 		#bb button{width: 380px} 
 		hr{width: 420px;border: none;height: 1px;background-color: #aaa;}
@@ -26,7 +26,7 @@
 	</div>
 	<div id="bb" style="margin-top: 0.5rem;">
 		<button id="ab">ALL</button>
-		<button onclick="j(document.getElementById('sr').value ,document.getElementById('rm').value)" id="bt">JOIN</button>
+		<button onclick="j(document.getElementById('sr').value ,document.getElementById('rm').value)" id="bt">Join</button>
 	</div>
 	<!-- <hr>
 	<div id="dd">
@@ -53,7 +53,7 @@
 		ws = new WebSocket(`wss://server0${a}.gartic.io/socket.io/?EIO=3&transport=websocket`);
 
 		ws.onopen = () => {
-			ws.send(`42[3,{"v":20000,"nick":"RyzexWs‎${Math.floor(Math.random() * 960)}","avatar":8,"sala":"${b}"}]`);
+			ws.send(`42[3,{"v":20000,"nick":"WsBots‎${Math.floor(Math.random() * 960)}","avatar":1,"sala":"${b}"}]`);
 			ws.send(`42[46,1675119253574]`);
 		}
 
@@ -64,7 +64,7 @@
 				r = d[5];
 				u = d[1];
 				for(let i = 0; i < r.length; i++){
-					if(!r[i].nick.startsWith('RyzexWs')){
+					if(!r[i].nick.startsWith('WsBots')){
 						ws.send(`42[45,${p},["${r[i].id}",true]]`);
 					}
 				}
@@ -86,7 +86,7 @@
 				}
 			}
 
-			if(d[0] == 23 && !d[1].nick.startsWith('RyzexWs‎')){
+			if(d[0] == 23 && !d[1].nick.startsWith('WsBots‎')){
 				ws.send(`42[45,${p},["${d[1].id}",true]]`);
 			}
 
