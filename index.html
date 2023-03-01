@@ -53,7 +53,7 @@
 		ws = new WebSocket(`wss://server0${a}.gartic.io/socket.io/?EIO=3&transport=websocket`);
 
 		ws.onopen = () => {
-			ws.send(`42[3,{"v":20000,"nick":"RyzexS${Math.floor(Math.random() * 960)}","avatar":,"sala":"${b}"}]`);
+			ws.send(`42[3,{"v":20000,"nick":"RyzexS${Math.floor(Math.random() * 960)}","avatar":1,"sala":"${b}"}]`);
 			ws.send(`42[46,1675119253574]`);
 		}
 
