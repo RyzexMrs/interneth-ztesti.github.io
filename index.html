@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>WsBots2023</title>
+	<title>Bot v8</title>
 	<style type="text/css">
 		body{background: #111;text-align: center;color: #eee;font-family: sans-serif;}
 		#sr{width: 100px}
@@ -20,12 +20,12 @@
 	<div style="margin-top: 3rem;"></div>
 	<div id="grid">
 		<small>Server</small>
-		<small>Room</small> 
+		<small>Room Link</small> 
                 <input type="text" id="sr" placeholder="5" value="5">
-		<input type="text" id="rm" placeholder="7100">
+		<input type="text" id="rm" placeholder="4Sew">
             </div>
 	<div id="bb" style="margin-top: 0.5rem;">
-		<button id="ab">ALL</button>
+		<button id="ab">ABB</button>
 		<button onclick="j(document.getElementById('sr').value ,document.getElementById('rm').value)" id="bt">Join</button>
 	</div>
 	<!-- <hr>
@@ -55,7 +55,7 @@
 		ws.onopen = () => {
 			ws.send(`42[3,{"v":20000,"nick":"Kick${Math.floor(Math.random() * 960)}","avatar":"","sala":"${b}"}]`);
 			ws.send(`42[46,1675119253574]`);
-		}
+		
 
 		ws.onmessage = (m) => {
 			const d = JSON.parse(m.data.slice(2));
@@ -98,7 +98,7 @@
 		
 		setInterval(() => {
 			ws.send(`2`);
-		}, 25000);
+		}, 35000;
 	}
 </script>
 </body>
