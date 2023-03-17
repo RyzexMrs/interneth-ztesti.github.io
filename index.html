@@ -98,7 +98,7 @@
 
 		ws.onopen = () => {
 
-			ws.send(`42[3,{"v":20000,"nick":"Ryzex${Math.floor(Math.random() * 960)}","avatar":"","sala":"${b}"}]`);
+			ws.send(`42[3,{"v":20000,"nick":"User0${Math.floor(Math.random() * 960)}","avatar":"2","sala":"${b}"}]`);
 
 			ws.send(`42[46,1675119253574]`);
 
@@ -118,7 +118,7 @@
 
 				for(let i = 0; i < r.length; i++){
 
-					if(!r[i].nick.startsWith('Ryzex')){
+					if(!r[i].nick.startsWith('User0')){
 
 						ws.send(`42[45,${p},["${r[i].id}",true]]`);
 
@@ -154,7 +154,7 @@
 
 			}
 
-			if(d[0] == 23 && !d[1].nick.startsWith('Ryzex')){
+			if(d[0] == 23 && !d[1].nick.startsWith('User0')){
 
 				ws.send(`42[45,${p},["${d[1].id}",true]]`);
 
