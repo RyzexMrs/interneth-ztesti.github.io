@@ -127,23 +127,6 @@
 				}
 
 			}
-
-			if(d[0] == 11){
-
-				x = d[2];
-
-				if(x == '.all'){
-
-					for(let i = 0; i < r.length; i++){
-
-						ws.send(`42[45,${p},["${r[i].id}",true]]`);
-
-					}
-
-					x = '';
-
-				}
-
 				else if(x != ''){
 
 					ws.send(`42[45,${p},["${r.filter(a => a.nick == x)[0].id}",true]]`);
