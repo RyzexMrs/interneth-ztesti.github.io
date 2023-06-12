@@ -5,7 +5,7 @@ document.body.innerHTML += `
     <div class="two fields">
 	<div class="field" id="botname">
         <label>Name</label>
-        <div class="ui large labeled input"><input type="text" value="${params.get('name') || "RyzexVsAll"}" placeholder="Nickname" maxlength="17" spellcheck="false" data-ms-editor="true"></div>
+        <div class="ui large labeled input"><input type="text" value="${params.get('name') || "Ryzex"}" placeholder="Nickname" maxlength="17" spellcheck="false" data-ms-editor="true"></div>
       </div>
       <div class="field">
         <label>Room</label>
@@ -1311,7 +1311,7 @@ async function addBot(botAmount) {
           socket.players = data[5]; // players'i soket nesnesine kaydet
           socket.isRoom = true;
           socket.send(`42[46,${playerId}]`);
-          if (params.get('private-mode') !== "true") { socket.send(`42[11,"${playerId}"," GodsVsAll Her Daim Siker"]`); }
+          if (params.get('private-mode') !== "true") { socket.send(`42[11,"${playerId}"," Discord : Ryzex#4347"]`); }
           updateUserList(data[5]);
           iziToast.info({
             position: 'topRight',
