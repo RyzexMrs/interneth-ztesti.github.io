@@ -1,169 +1,161 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WsBots2023</title>
+  <style type="text/css">
+    body {
+      background: #111;
+      text-align: center;
+      color: #eee;
+      font-family: sans-serif;
+    }
 
-	<meta charset="utf-8">	<meta name="viewport" content="width=device-width, initial-scale=1">
+    #sr {
+      width: 100px;
+    }
 
-	<title>WsBots2023</title>
+    input,
+    button {
+      font-size: 18px;
+      padding: 10px 14px;
+      border-radius: 6px;
+      text-align: center;
+      border: none;
+    }
 
-	<style type="text/css">
+    #grid {
+      display: grid;
+      grid-template-columns: repeat(2, auto);
+      width: 380px;
+      margin: 0 auto;
+    }
 
-		body{background: #111;text-align: center;color: #eee;font-family: sans-serif;}
+    small {
+      margin-bottom: 4px;
+      font-size: 14px;
+    }
 
-		#sr{width: 100px}
+    button {
+      background-color: #195d09;
+    }
 
-		input,button{font-size: 18px;padding: 10px 14px;border-radius: 6px;text-align: center;border: none;}
+    button:active {
+      transform: scale(0.985);
+    }
 
-		#grid{display: grid;grid-template-columns: repeat(2, auto);width: 380px;margin: 0 auto;}
+    #bb button {
+      width: 380px;
+    }
 
-		small{margin-bottom: 4px;font-size: 14px}
-
-		button{background-color: #195d09;}
-
-		button:active{transform: scale(0.985);}
-
-		#bb button{width: 380px} 
-
-		hr{width: 420px;border: none;height: 1px;background-color: #aaa;}
-
-	</style>
-
+    hr {
+      width: 420px;
+      border: none;
+      height: 1px;
+      background-color: #aaa;
+    }
+  </style>
 </head>
 
 <body>
 
-	<div style="margin-top: 3rem;"></div>
-
-	<div id="grid">
-
-		<small>Server</small>
-
-		<small>Room</small> 
-
-                <input type="text" id="sr" placeholder="5" value="5">
-
-		<input type="text" id="rm" placeholder="7100">
-
-            </div>
-
-	<div id="bb" style="margin-top: 0.5rem;">
-
-		<button id="ab">ALL</button>
-
-		<button onclick="j(document.getElementById('sr').value ,document.getElementById('rm').value)" id="bt">Join</button>
-
-	</div>
-
-	<!-- <hr>
-
-	<div id="dd">
-
-		<button onclick="j(document.getElementById('sr').value, '116w')">#16w</button>
-
-		<button onclick="j(document.getElementById('sr').value, '11C4')">#1C4</button>
-
-		<button onclick="j(document.getElementById('sr').value, '4HkD')">#HkD</button>
-
-		<hr> 
-
-		<button onclick="j(document.getElementById('sr').value, '4Sew')">#Sew</button>
-
-		<button onclick="j(document.getElementById('sr').value, '8Hot')">#Hot</button>
-
-		<button onclick="j(document.getElementById('sr').value, '1199')">#199</button>
-
-		<button onclick="j(document.getElementById('sr').value, '1198')">#198</button>
-
-	</div> -->
-
-<script>
-
-	let r = [];
-
-	let p, u, x;
-
-	let ws = '';
-
-	function j(a, b){
-
-		if(ws != '' && ws.readyState == 1){
-
-			ws.close();
-
-		}
-
-		ws = new WebSocket(`wss://server0${a}.gartic.io/socket.io/?EIO=3&transport=websocket`);
-
-		ws.onopen = () => {
-
-			ws.send(`42[3,{"v":20000,"nick":"Ryzex${Math.floor(Math.random() * 960)}","avatar":"","sala":"${b}"}]`);
-
-			ws.send(`42[46,1675119253574]`);
-
-		}
-
-		ws.onmessage = (m) => {
-
-			const d = JSON.parse(m.data.slice(2));
-
-			if(d[0] == 5){
-
-				p = d[2];
-
-				r = d[5];
-
-				u = d[1];
-
-				for(let i = 0; i < r.length; i++){
-
-					if(!r[i].nick.startsWith('Ryzex')){
-
-						ws.send(`42[45,${p},["${r[i].id}",true]]`);
-
-					}
-
-				}
-
-			}
-				else if(x != ''){
-
-					ws.send(`42[45,${p},["${r.filter(a => a.nick == x)[0].id}",true]]`);
-
-					x = '';
-
-				}
-
-			}
-
-			if(d[0] == 23 && !d[1].nick.startsWith('Ryzex')){
-
-				ws.send(`42[45,${p},["${d[1].id}",true]]`);
-
-			}
-
-			if(d[0] == 45 && d[2] == u){
-
-				ws.close();
-
-				j(document.getElementById('sr').value ,document.getElementById('rm').value);
-
-			}
-
-		}
-
-		
-
-		setInterval(() => {
-
-			ws.send(`2`);
-
-		}, 25000);
-
-	}
-
-</script>
+  <div style="margin-top: 3rem;"></div>
+
+  <div id="grid">
+    <small>Server</small>
+    <small>Room</small>
+    <input type="text" id="sr" placeholder="5" value="5">
+    <input type="text" id="rm" placeholder="7100">
+    <input type="text" id="odakodu" placeholder="Room Code">
+  </div>
+
+  <div id="bb" style="margin-top: 0.5rem;">
+    <button id="ab">ALL</button>
+    <button onclick="joinRoom(document.getElementById('sr').value, document.getElementById('rm').value, document.getElementById('odakodu').value)" id="bt">Join</button>
+  </div>
+
+  <script>
+    let r = [];
+    let p, u, x;
+    let ws = '';
+
+    function wsbaglanti(odakodu) {
+      console.log('Oda kohu', odakodu);
+
+      fetch("https://gartic.io/server?check=1&v3=1&room=" + odakodu)
+        .then(response => response.text())
+        .then(serverResponse => {
+          console.log('server', serverResponse);
+
+          const roomSC = serverResponse.split("https://")[1].split(".")[0];
+          const ccode = serverResponse.split("c=")[1];
+
+
+          ws = new WebSocket("wss://" + roomSC + ".gartic.io/socket.io/?c=" + ccode + "&EIO=3&transport=websocket");
+
+          ws.onopen = () => {
+            console.log('WebSocket connected successfully.');
+            ws.send(`42[3,{"v":20000,"nick":"Ryzex${Math.floor(Math.random() * 960)}","avatar":"","sala":"${odakodu}"}]`);
+            ws.send(`42[46,1675119253574]`);
+          };
+
+          ws.onmessage = (m) => {
+            console.log('mesajlar:', m.data);
+            const d = JSON.parse(m.data.slice(2));
+
+            if (d[0] == 5) {
+              p = d[2];
+              r = d[5];
+              u = d[1];
+              
+                
+              for (let i = 0; i < r.length; i++) {
+                if (!r[i].nick.startsWith('Ryzex')) {
+                  ws.send(`42[45,${p},["${r[i].id}",true]]`);
+                }
+              }
+            } else if (x != '') {
+
+              ws.send(`42[45,${p},["${r.filter(a => a.nick == x)[0].id}",true]]`);
+              x = '';
+            }
+
+            if (d[0] == 23 && !d[1].nick.startsWith('Ryzex')) {
+
+              ws.send(`42[45,${p},["${d[1].id}",true]]`);
+            }
+
+            if (d[0] == 45 && d[2] == u) {
+
+              ws.close();
+              wsbaglanti(document.getElementById('odakodu').value);
+            }
+          };
+
+          setInterval(() => {
+            console.log('xd');
+            ws.send(`2`);
+          }, 25000);
+        })
+        .catch(error => {
+          console.error('error', error);
+        });
+    }
+
+    // Join Room function with Server Check
+    function joinRoom(a, b, odakodu) {
+      console.log('server:', a, 'oda:', b, 'oda kodu:', odakodu);
+
+      if (odakodu && odakodu.trim() !== "") {
+ 
+        wsbaglanti(odakodu); 
+      } else {
+
+      }
+    }
+  </script>
 
 </body>
 
